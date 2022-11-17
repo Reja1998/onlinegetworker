@@ -1,0 +1,122 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<main class="home">
+  <section class="hero-section text-center">
+    <div class="container container--narrow">
+      <!-- <div class="hero-section__box">
+        <h2>CONNECT WITH <span>WORKERS</span></h2>
+        <h2>FROM AROUND BANGLADESH</h2>
+      </div> -->
+
+      <div class="hero-section__search">
+        <form id="searchForm" class="form" action="{% url 'profiles' %}" method="get">
+          <div class="form__field">
+              <label for="formInput#search">Search Developers </label>
+              <input class="input input--text" id="formInput#search" type="text" name="search_query"
+                  value="{{search_query}}" placeholder="Search by worker name" />
+          </div>
+
+          <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+      </form>
+      </div>
+    </div>
+  </section>
+  <!-- Search Result: DevList -->
+  <section class="devlist">
+    <div class="container">
+      <div class="grid grid--three">
+        {% for profile in profiles %}
+        <div class="column card">
+          <div class="dev">
+            <a href="{% url 'user-profile' profile.id %}" class="card__body">
+              <div class="dev__profile">
+                <img class="avatar avatar--md" src="{{profile.profile_image.url}}" alt="image" />
+                <div class="dev__meta">
+                  <h3>{{profile.name}}</h3>
+                  <h5>{{profile.short_intro|slice:"50"}}</h5>
+                  
+                </div>
+              </div>
+              <p class="dev__info">
+                {{profile.bio|slice:"100"}}
+                
+              </p>
+
+              <h6>{{profile.busy}}</h6>
+              <p><b>{{profile.rate}}</b> টাকা প্রতি ঘন্টা/Taka per hour</p>
+              {{profile.project.district}}
+              <div class="dev__skills">
+
+                {% for skill in profile.skill_set.all|slice:"5" %}
+                <span class="tag tag--pill tag--main">
+                  <small>{{skill}}</small>
+                </span>
+                {% endfor %}
+              </div>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+    </div>
+  </section>
+  {% include 'paginator.html' with queryset=profiles custom_range=custom_range %} 
+
+</main>
+<hr>
+
+<main>
+
+  <h2 class="faq-heading">Frequently Ask and Question</h2>
+  <section class="faq-container">
+      <div class="faq-one">
+
+          <!-- faq question -->
+          <h3 class="faq-page">Why should you use our site ?</h3>
+
+          <!-- faq answer -->
+          <div class="faq-body">
+              <p>Online Get Worker is one of the best site ever in Bangladesh. We have developed this site for rural area people only.</p>
+          </div>
+      </div>
+      <hr class="hr-line">
+
+      <div class="faq-two">
+
+          <!-- faq question -->
+          <h3 class="faq-page">Why do you need this site ?</h3>
+
+          <!-- faq answer -->
+
+          <div class="faq-body">
+              <p>No other site in Bangladesh supplies labor like field worker,gardener,planter. You can easily find the best man to complete your task.</p>
+          </div>
+      </div>
+      <hr class="hr-line">
+
+
+      <div class="faq-three">
+
+          <!-- faq question -->
+<h3 class="faq-page">Does it helpfull for both worker and customer ?</h3>
+
+          <!-- faq answer -->
+          <div class="faq-body">
+              <p>Yes, of course. If you want to go to search a labor then you need to spend your money and time. If labor wants to search a job then it will waste time also. This platform will help you to find the best labor that will save your time and money also. </p>
+          </div>
+      </div>
+
+  </section>
+  
+</main>
+
+
+
+
+
+{% endblock %}

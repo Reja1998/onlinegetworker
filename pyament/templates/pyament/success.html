@@ -1,0 +1,12 @@
+{% extends 'main.html'%}
+{% load static %}
+{% block content %}
+	<div id="box">
+		<img id="succes-icon" src="{% static 'images/check.png' %}">
+		<h4>Thank you for your contribution of ${{amount}}! for stay with us.</h4>
+		
+		<hr>
+		<a class="myButton" href="{% url 'payment' %}">&#x2190;Back to payment page</a>
+	</div>
+
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<!-- Main Section -->
+<main class="messagePage my-xl">
+  <div class="content-box">
+    <div class="message">
+      <a class="backButton" href="{% url 'inbox' %}"><i class="im im-angle-left"></i></a>
+      <h2 class="message__subject">{{message.subject}}</h2>
+        {% if message.sender %}
+        <a href="{% url 'user-profile' message.sender.id  %}" class="message__author">{{message.name}}</a>
+        {% else %}
+        <p class="message__author">{{message.name}}</p>
+        {% endif %}
+        <p class="message__date">{{message.created}}</p>
+        <p class="message__author"><h4>Location:  </h4><h6><b>Thana :</b> {{message.thana}} &nbsp <b>Union :</b> {{message.union}} &nbsp<b>Village :</b> {{message.village}} &nbsp </b>Email: {{message.email}} &nbsp
+
+          <b>Mobile : </b> {{message.mobile}}</h6>
+        </p>
+        <div class="message__body">{{message.body|linebreaksbr}}</div>
+        <br>
+        
+        
+        <a href="https://mail.google.com/mail/" class="btn btn--sub btn--lg">Confirm Order</a>
+        
+        <!-- <input class="btn btn--sub btn--lg"  type="submit" value="Confirm Order" /> -->
+
+    </div>
+  </div>
+</main>
+{% endblock content %}
